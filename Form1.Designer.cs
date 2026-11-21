@@ -1,4 +1,5 @@
 ﻿namespace OOP_Finals;
+using View;
 
 partial class Form1
 {
@@ -28,11 +29,23 @@ partial class Form1
     /// </summary>
     private void InitializeComponent()
     {
+
+        current= new Suppliers();
+
         components = new System.ComponentModel.Container();
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(1194, 834);
         Text = "Form1";
+
+        ResumeLayout(false);
+
+        current.Location = new Point(330,10);
+        current.Size = new Size(861,500);
+
+        Controls.Add(current);
     }
+
+    private Suppliers current;
 
     #endregion
 }
