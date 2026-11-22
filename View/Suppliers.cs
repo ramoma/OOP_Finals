@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable disable
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -24,7 +25,7 @@ namespace View  // <- change to your project's namespace
         public int Qty { get; set; }
         public decimal Cost { get; set; }
         public DateTime Ordered { get; set; }
-        public DateTime Expected { get; set; }
+        public DateTime? Expected { get; set; }   // null = not set
         public PoStatus Status { get; set; }
         public object Tag { get; set; }          // optional: your DB id / entity
     }
@@ -768,7 +769,8 @@ namespace View  // <- change to your project's namespace
                     break;
                 case 4:
                     TwoLines(g, b, x, w, "Ordered: " + po.Ordered.ToString("yyyy-MM-dd"), Theme.Body, Theme.BodyText,
-                             "Expected: " + po.Expected.ToString("yyyy-MM-dd"), Theme.Small, Theme.Faint);
+                             "Expected: " + (po.Expected.HasValue ? po.Expected.Value.ToString("yyyy-MM-dd") : "\u2014"),
+                             Theme.Small, Theme.Faint);
                     break;
                 case 5:
                     PaintStatus(g, b, x, po.Status);
@@ -945,6 +947,7 @@ namespace View  // <- change to your project's namespace
             var tag = new TagLabel(v.Code ?? "") { Location = new Point(pad, 19) };
             var rating = MakeLabel("\u2605 " + v.Rating.ToString("0.0", CultureInfo.InvariantCulture),
                                    Theme.BodyBold, Theme.Amber, 0, 20);
+            rating.Visible = v.Rating > 0;   // hidden when the supplier has no rating
 
             var name = MakeLabel(v.Name, Theme.VendorName, Theme.Ink, pad - 2, 46);
             var contact = MakeLabel(v.Contact, Theme.Body, Theme.Muted, pad - 2, 72);
