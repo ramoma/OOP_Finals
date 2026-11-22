@@ -13,4 +13,10 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="ENVReader">
+      <HintPath>..\..\..\source\repos\ENVReader\ENVReader\bin\Debug\net10.0\ENVReader.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
